@@ -1,31 +1,52 @@
-#include<stdio.h> int main()
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+void main()
 {
-int a[20];
-int pass,hold,i,n=10;
-char t;
-int b[10]={'a','b','c','d','e','f','g','h','i','j'};
-printf("Enter the Number of Gifts Purchased By The 10 Students \n"); 
-for(i=0;i<n;i++)
-{
-printf("\n %c",b[i]);
-scanf("%d",&a[i]);
-}
-for(i=0;i<n;i++)
-{
-//printf("\n %d",a[i]);
-}
-for(pass=1;pass<=n-1;pass++)
-{
-for(i=0;i<n-1;i++)
-{
-if(a[i]<a[i+1])
-{
-hold=a[i]; a[i]=a[i+1]; a[i+1]=hold;
-}
-}
-}
-for(i=0;i<n;i++)
-{
-printf("%d \n",a[i]);
-}
+	char p[10][5],temp[5];
+	int i,j,pt[10],wt[10],totwt=0,pr[10],temp1,n;
+	float avgwt;
+	printf("Enter no of student:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		printf("enter student %d name:",i+1);
+  		scanf("%s",&p[i]);
+		printf("enter process time:");
+		scanf("%d",&pt[i]);
+		printf("enter no of gifts:");
+		scanf("%d",&pr[i]);
+	}
+  	for(i=0;i<n-1;i++)
+	{
+		for(j=i+1;j<n;j++)
+		{
+			if(pr[i]>pr[j])
+			{
+				temp1=pr[i];
+				pr[i]=pr[j];
+				pr[j]=temp1;
+				temp1=pt[i];
+				pt[i]=pt[j];
+				pt[j]=temp1;
+				strcpy(temp,p[i]);
+				strcpy(p[i],p[j]);
+				strcpy(p[j],temp);
+			}
+		}
+	}
+	wt[0]=0;
+	for(i=1;i<n;i++)
+	{
+		wt[i]=wt[i-1]+wt[i-1];
+		totwt=totwt+wt[i];
+	}
+	avgwt=(float)totwt/n;
+	printf("G_name\t P_time\t No.Gifts\tW_time\n");
+	for(i=0;i<n;i++)
+	{
+	   printf(" %s\t %d\t %d\t \t%d\n" ,p[i],pt[i],pr[i],wt[i]);
+	}
+	printf("total waiting time=%d\navg waiting time=%f",totwt,avgwt);
+	getch();
 }
